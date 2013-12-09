@@ -1,0 +1,17 @@
+<html>
+    <head>
+    </head>
+
+    <body>
+        {{boss_flash}}
+        <h1>List Of Accounts ({{accounts|length}})</h1>
+        {% if accounts %}
+            {% for account in accounts %}
+                Account #:{{account.account_id}}, Balance: {{ account.balance }} <a href="/index/transactions/aid/{{account.account_id}}">Details</a> | <a href="/index/del_account/aid/{{account.account_id}}">Delete</a>
+                <br/>
+            {% endfor %}
+        {% endif %}
+        <br/>
+        <a href="/index/add_account">Add Account</a>
+    </body>
+</html>

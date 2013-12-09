@@ -1,0 +1,18 @@
+<html>
+    <head>
+    </head>
+
+    <body>
+        {{boss_flash}}
+        <h1>Account #{{account_id}}</h1>
+        <h2>List Of Transactions ({{transactions|length}})</h2>
+        {% if transactions %}
+            {% for transaction in transactions %}
+                Id: {{transaction.transaction_id}} , Amount: {{ transaction.amount }}
+                <br/>
+            {% endfor %}
+        {% endif %}
+        <br/>
+        <a href="/index/add_transaction/aid/{{account_id}}">Deposit Amount</a> | <a href="/index/del_transaction/aid/{{account_id}}">Withdraw Amount</a> |<a href="/">Back to Accounts</a>
+    </body>
+</html>

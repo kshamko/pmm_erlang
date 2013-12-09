@@ -1,0 +1,19 @@
+<html>
+<head>
+</head>
+
+    <body>
+        <h1>Account #{{account_id}}</h1>
+
+        <h2>Deposit Amount</h2>
+
+        <form method="POST" action="/index/add_transaction">
+            Amount: <input type="text" name="amount"/>
+            <input type="hidden" name="aid" value="{{account_id}}">
+            <input type="submit" value="Deposit"/>
+        </form>
+
+        <br/>
+        <a href="/index/transactions/aid/{{account_id}}">Back To Transactions</a> | <a href="/">Back to Accounts</a>
+    </body>
+</html>
