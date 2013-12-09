@@ -1,0 +1,7 @@
+How to Run
+
+0. Start console
+1. erl
+2. c(task2).
+3. task2:calc("triangle_small.txt").
+   task2:calc("triangle.txt").

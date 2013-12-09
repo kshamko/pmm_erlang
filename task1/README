@@ -1,0 +1,7 @@
+How to Run
+
+0. Start console
+1. erl
+2. c(task1).
+3. task1:get([ -1, 3, 2, 5, -4, -2, -6 ]).
+   task1:get([ 1, 2, 3, 4, 3, 2, 1 ]).

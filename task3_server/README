@@ -1,0 +1,44 @@
+************************
+How to Run
+************************
+
+0. Open console
+1. make deps
+2. make
+3. make run
+4. Server will listen http://localhost:8008
+
+*************************
+The Code
+*************************
+
+All the code can be found in src folder. cowboy_rest handler was used to create REST API.
+Supported methods get, post, delete, put. List of available actions supported by service
+
+Method | Type         | Params             | Desccription
+---------------------------------------------------------------------------------------
+POST   | account      | token, balance     | creates accout with initial balance. return AccId
+---------------------------------------------------------------------------------------
+GET    | transactions | token, aid         | returns list of transaction for the account with aid
+---------------------------------------------------------------------------------------
+DELETE | account      | token, aid         | deletes account with aid
+----------------------------------------------------------------------------------------
+POST   | amount       | token, aid, amount | Deposits amount to account
+----------------------------------------------------------------------------------------
+DELETE | amount       | token, aid, amount | Withdraws amount from account
+----------------------------------------------------------------------------------------
+GET    | auth         | appid              | just dummy authorization for the API
+----------------------------------------------------------------------------------------
+
+Each of actions (except auth) require token param. This token can be obtained by doing auth request. 
+Auth was developed using gen_fsm and has very dasic functionality (just to demonstrate gen_fsm usage).
+
+***************************
+TODO
+***************************
+
+1. Improve input params validation. Create separate module for that with mappings of input params, their types etc
+2. Add unit testing
+3. Add logger based on gen_event
+4. Mnesia tables are deleted on every app restart
+

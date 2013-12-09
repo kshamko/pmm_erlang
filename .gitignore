@@ -1,0 +1,7 @@
+task1/task1.beam
+task2/task2.beam
+task3_client/deps/*
+task3_client/ebin/*
+task3_server/deps/*
+task3_server/ebin/*
+task3_client/log/*

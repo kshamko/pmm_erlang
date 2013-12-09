@@ -1,0 +1,17 @@
+How to Run
+
+0. Open console
+1. rebar get-deps
+2. rebar compile
+3. ./init-dev.sh (or ./init.sh)
+4. Open browser and go to http://localhost:8001
+5. You will get an exception if task3_server is not running. Just run it in this case.
+
+The Code
+
+ChicagoBoss framework was used to build WebUI app. The custom code can be found in 
+src/controller/task3_client_index_controller.erl
+ 
+
+
+
