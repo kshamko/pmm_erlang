@@ -5,3 +5,5 @@ task3_client/ebin/*.*
 task3_server/deps/*
 task3_server/ebin/*.*
 task3_client/log/*
+.idea/*
+*.iml

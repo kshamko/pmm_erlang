@@ -46,7 +46,6 @@ setup_tables() ->
     {attributes, record_info(fields, accounts)},
     {type, set}
   ]),
-
   io:format("Create table: ~p~n", [R1]),
 
   R2 = mnesia:create_table(account_transactions,  [
@@ -55,4 +54,4 @@ setup_tables() ->
     {type, bag}
   ]),
   io:format("Create table: ~p~n", [R2]),
-ok.
+  ok.

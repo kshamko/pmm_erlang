@@ -1,18 +1,13 @@
-%%%-------------------------------------------------------------------
-%%% @author kostik
-%%% @copyright (C) 2013, <COMPANY>
-%%% @doc
-%%%
-%%% @end
-%%% Created : 20. Nov 2013 4:19 PM
-%%%-------------------------------------------------------------------
 -module(task3_model).
--author("kostik").
+-author("konstantin.shamko@gmail.com").
 -include("../include/task3_database.hrl").
 
 %% API
 -export([add_account/1, get_accounts/0, get_transactions/1, add_transaction/2, delete_account/1]).
 
+%%%========================================
+%%% API
+%%%========================================
 add_account(Balance) when is_binary(Balance) ->
   Amount = bin_to_num(Balance),
   case Amount of
@@ -35,9 +30,6 @@ add_account(_Balance) ->
 get_accounts() ->
   prepare_records(mnesia:dirty_select(accounts, [{'_', [], ['$_']}]), []).
 
-%%
-%%
-%%
 add_transaction(AccountId, {Mult, Amount}) when is_binary(Amount) ->
   NumAmount = bin_to_num(Amount),
   Account = mnesia:dirty_read({accounts, AccountId}),

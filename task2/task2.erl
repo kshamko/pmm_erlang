@@ -1,16 +1,19 @@
-%%%-------------------------------------------------------------------
-%%% @author kostik
-%%% @copyright (C) 2013, <COMPANY>
-%%% @doc
-%%%
-%%% @end
-%%% Created : 01. Oct 2013 8:24 PM
-%%%-------------------------------------------------------------------
 -module(task2).
--author("kostik").
+-author("konstantin.shamko@gmail.com").
 
 %% API
 -export([calc/1]).
+
+%%%===============================================
+%%% API
+%%%===============================================
+calc(Filename) ->
+  [BottomRow|[PreBottomRow|Triangle]] = lists:reverse(load_file(Filename)),
+  calc(BottomRow, PreBottomRow, Triangle).
+
+%%%===============================================
+%%% Internal Functions
+%%%===============================================
 
 load_file(Filename) ->
   {ok, Device} = file:open(Filename, [read]),
@@ -24,10 +27,6 @@ read_file(Device) ->
 
 line_to_list(Line) ->
   lists:map(fun(X)-> {Int,_} = string:to_integer(X), Int end, string:tokens(string:strip(Line, right, $\n), " ")).
-
-calc(Filename) ->
-  [BottomRow|[PreBottomRow|Triangle]] = lists:reverse(load_file(Filename)),
-  calc(BottomRow, PreBottomRow, Triangle).
 
 calc(Bottom, PreBottom, Triangle) when length(Triangle) == 0 ->
   Max = lists:max(Bottom),

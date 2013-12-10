@@ -1,11 +1,3 @@
-%%%-------------------------------------------------------------------
-%%% @author kostik
-%%% @copyright (C) 2013, <COMPANY>
-%%% @doc
-%%%
-%%% @end
-%%% Created : 22. Nov 2013 2:12 PM
-%%%-------------------------------------------------------------------
 -module(task3_client_index_controller, [Req]).
 -compile(export_all).
 
@@ -54,7 +46,7 @@ del_account('GET', ["aid", AccountId]) ->
 %%% Internal functions
 %%%===================================================================
 
-% TODO get rid of jiffy here
+%% TODO get rid of jiffy here
 do_api_call(Method, Params) when (Method =:= get) orelse (Method =:= delete)->
   Url = string:concat("http://localhost:8008/?", prepare_get_params(Params)),
   send_request(Method, {Url, []});

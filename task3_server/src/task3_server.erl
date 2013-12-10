@@ -1,13 +1,5 @@
-%%%-------------------------------------------------------------------
-%%% @author kostik
-%%% @copyright (C) 2013, <COMPANY>
-%%% @doc
-%%%
-%%% @end
-%%% Created : 13. Nov 2013 1:44 PM
-%%%-------------------------------------------------------------------
 -module(task3_server).
--author("kostik").
+-author("konstantin.shamko@gmail.com").
 
 -behaviour(gen_server).
 
@@ -16,8 +8,6 @@
 
 %% gen_server callbacks
 -export([init/1, code_change/3, handle_call/3, terminate/2, handle_cast/2]).
-
-
 
 -define(SERVER, ?MODULE).
 -define(AUTH_WORKER(WorkerName, ServerPid),
@@ -28,18 +18,12 @@
     worker,
     [task3_auth_worker]}).
 
+
 -record(state, {fsms, tokens, supervisor}).
 
 %%%===================================================================
 %%% API
 %%%===================================================================
-
-%%--------------------------------------------------------------------
-%% @doc
-%% Starts the server
-%%
-%% @end
-%%--------------------------------------------------------------------
 start_link(SupPid) ->
   gen_server:start_link({local, ?SERVER}, ?MODULE, {SupPid}, []).
 
@@ -56,6 +40,7 @@ process_request(_Method, _Action, [], _Pid) ->
 
 kill_auth_worker(ServerPid, WorkerPid) ->
   gen_server:cast(ServerPid, {kill_auth_worker, WorkerPid}).
+
 %%%===================================================================
 %%% gen_server callbacks
 %%%===================================================================
@@ -119,7 +104,6 @@ handle_call({state}, _From, State) ->
 %catch API requests
 handle_call(_Params, _From, State) ->
   {reply, {error, {not_found, method_not_exists}}, State}.
-
 
 handle_cast({kill_auth_worker, Pid}, State) ->
   supervisor:terminate_child(State#state.supervisor, Pid),

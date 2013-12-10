@@ -1,11 +1,3 @@
-%%%-------------------------------------------------------------------
-%%% @author kostik
-%%% @copyright (C) 2013, <COMPANY>
-%%% @doc
-%%%
-%%% @end
-%%% Created : 13. Nov 2013 6:13 PM
-%%%-------------------------------------------------------------------
 -module(task3_auth_worker).
 -author("kostik").
 
@@ -29,16 +21,14 @@
 -define(TTL, 5000).
 
 -record(state, {token, server_pid}).
-
-
-start_link(ServerPid) ->
-  gen_fsm:start_link(?MODULE, [ServerPid], [{timeout, ?TTL}]).
-
 %%%===================================================================
 %%% API
 %%%===================================================================
 authorize(AppId, Pid) ->
   gen_fsm:sync_send_event(Pid, {authorize, AppId}).
+
+start_link(ServerPid) ->
+  gen_fsm:start_link(?MODULE, [ServerPid], [{timeout, ?TTL}]).
 
 %%%===================================================================
 %%% States

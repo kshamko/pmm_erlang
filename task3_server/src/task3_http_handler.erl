@@ -19,20 +19,16 @@ allowed_methods(Req, State) ->
 content_types_provided(Req, State) ->
   {[{{<<"application">>, <<"json">>, []}, process_request}], Req, State}.
 
-%POST
+%to process POSTs
 content_types_accepted(Req, State) ->
   {[{{<<"application">>, <<"json">>, []}, process_body_request}], Req, State}.
 
-%DELETE
+%to process DELETEs
 delete_resource(Req, State) ->
   {true, Req, State}.
 
 delete_completed(Req, State) ->
   process_body_request(Req, State).
-
-
-process_body_request(Req, State) ->
-  process_request(Req, State).
 
 
 process_request(Req, State = {auth_server_pid, Pid}) ->
@@ -56,6 +52,8 @@ process_request(Req, State = {auth_server_pid, Pid}) ->
       {halt, Req3, State}
   end.
 
+process_body_request(Req, State) ->
+  process_request(Req, State).
 
 %%%===============================================
 %%% Internal Functions
