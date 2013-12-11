@@ -30,7 +30,7 @@ DELETE | amount       | token, aid, amount | Withdraws amount from account
 GET    | auth         | appid              | just dummy authorization for the API
 ----------------------------------------------------------------------------------------
 
-Each of actions (except auth) require token param. This token can be obtained by doing auth request. 
+Each action (except auth) requires token param. This token can be obtained by doing auth request. 
 Auth was developed using gen_fsm and has very dasic functionality (just to demonstrate gen_fsm usage).
 
 ***************************
