@@ -9,7 +9,7 @@ How to Run
 
 The Code
 
-ChicagoBoss framework was used to build WebUI app. The custom code can be found in 
+ChicagoBoss framework was used to build WebUI app. Custom code can be found in 
 src/controller/task3_client_index_controller.erl
  
 
