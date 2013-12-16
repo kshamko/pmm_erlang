@@ -44,14 +44,20 @@ add_transaction(AccountId, {Mult, Amount}) when is_binary(Amount) ->
         case [P] of
           [{accounts, _Id, CurrentAmount}] ->
             NewAmount = CurrentAmount + Mult * NumAmount,
-            mnesia:write(#account_transactions{account_id = AccountId, amount = Mult * NumAmount, transaction_id = TransactionId}),
-            mnesia:write(P#accounts{balance = NewAmount});
-          [] -> {error}
+            if
+              NewAmount >= 0 ->
+                mnesia:write(#account_transactions{account_id = AccountId, amount = Mult * NumAmount, transaction_id = TransactionId}),
+                mnesia:write(P#accounts{balance = NewAmount});
+              true -> {error, 'Bad amount'}
+            end;
+          [] -> {error, 'No account'}
         end
       end,
       case mnesia:transaction(Fun) of
         {atomic, ok} -> TransactionId;
-        _ -> {error, {transaction, 'Unknown error'}}
+        {atomic, {error, Error}} -> {error, {input, Error}};
+        _ ->
+          {error, {transaction, 'Unknown error'}}
       end
   end;
 add_transaction(_AccountId, _Amount) ->
