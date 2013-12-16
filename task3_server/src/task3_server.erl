@@ -111,7 +111,7 @@ handle_cast({kill_auth_worker, Pid}, State) ->
   Token = orddict:fetch(Pid, State#state.fsms),
   NewTokens = orddict:erase(Token, State#state.tokens),
   NewFsm = orddict:erase(Pid, State#state.fsms),
-  {ok, State#state{fsms = NewFsm, tokens = NewTokens}};
+  {noreply, State#state{fsms = NewFsm, tokens = NewTokens}};
 handle_cast(_Params, State) ->
   {noreply, State}.
 

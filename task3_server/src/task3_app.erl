@@ -16,7 +16,7 @@ start(_StartType, _StartArgs) ->
 
     Dispatch = cowboy_router:compile([
         {'_', [
-            {"/", task3_http_handler, [{auth_server_pid, ServerPid}]}
+            {"/", task3_http_handler, [{server_pid, ServerPid}]}
         ]}
     ]),
     Port = 8008,

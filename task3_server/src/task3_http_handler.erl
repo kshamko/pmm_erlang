@@ -10,8 +10,8 @@
 init(_Transport, _Req, _Opts) ->
   {upgrade, protocol, cowboy_rest}.
 
-rest_init(Req, [{auth_server_pid, Pid}|_]) ->
-  {ok, Req, {auth_server_pid, Pid}}.
+rest_init(Req, [{server_pid, Pid}|_]) ->
+  {ok, Req, {server_pid, Pid}}.
 
 allowed_methods(Req, State) ->
   {[<<"GET">>, <<"PUT">>, <<"DELETE">>, <<"POST">>], Req, State}.
@@ -31,7 +31,7 @@ delete_completed(Req, State) ->
   process_body_request(Req, State).
 
 
-process_request(Req, State = {auth_server_pid, Pid}) ->
+process_request(Req, State = {server_pid, Pid}) ->
   {Method, Req2} = cowboy_req:method(Req),
   case cowboy_req:has_body(Req) of
     true ->

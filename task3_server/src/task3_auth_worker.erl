@@ -36,7 +36,7 @@ start_link(ServerPid) ->
 
 %% async
 opened(timeout, State) ->
-  {stop, timeout, reply, State};
+  {stop, normal, State};
 opened(_Event, State) ->
   {next_state, opened, State}.
 
@@ -75,7 +75,8 @@ handle_info(Info, StateName, State) ->
   {next_state, StateName, State}.
 
 terminate(_Reason, _StateName, State) ->
-  task3_auth_server:kill_auth_worker(State#state.server_pid, self()),
+  io:format("Terminate auth worker ~p~n", [self()]),
+  task3_server:kill_auth_worker(State#state.server_pid, self()),
   ok.
 
 code_change(_OldVsn, StateName, State, _Extra) ->
