@@ -17,7 +17,9 @@ calc(Filename) ->
 
 load_file(Filename) ->
   {ok, Device} = file:open(Filename, [read]),
-  read_file(Device).
+  Lines = read_file(Device),
+  file:close(Device),
+  Lines.
 
 read_file(Device) ->
   case file:read_line(Device) of
