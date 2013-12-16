@@ -10,8 +10,8 @@
 init(_Transport, _Req, _Opts) ->
   {upgrade, protocol, cowboy_rest}.
 
-rest_init(Req, [{server_pid, Pid}|_]) ->
-  {ok, Req, {server_pid, Pid}}.
+rest_init(Req, State) ->
+  {ok, Req, State}.
 
 allowed_methods(Req, State) ->
   {[<<"GET">>, <<"PUT">>, <<"DELETE">>, <<"POST">>], Req, State}.
@@ -31,7 +31,7 @@ delete_completed(Req, State) ->
   process_body_request(Req, State).
 
 
-process_request(Req, State = {server_pid, Pid}) ->
+process_request(Req, State) ->
   {Method, Req2} = cowboy_req:method(Req),
   case cowboy_req:has_body(Req) of
     true ->
@@ -43,6 +43,7 @@ process_request(Req, State = {server_pid, Pid}) ->
   {Action, Params} = prepare_request_params(Qs, {empty_action, []}),
   io:format("Method: ~p, Action: ~p, Params:~p ~n", [Method, Action, Params]),
 
+  Pid = whereis(task3_server),
   case Response = task3_server:process_request(binary_to_atom(Method, utf8), Action, Params, Pid) of
     {error, {_ErrorType, Error}} ->
       {ok, Req3} = cowboy_req:reply(http_status(Response), [{<<"content-type">>, <<"application/json">>}], mochijson2:encode({[{error, Error}]}), Req),

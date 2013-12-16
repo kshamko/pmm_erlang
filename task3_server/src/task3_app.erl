@@ -12,11 +12,9 @@
 start(_StartType, _StartArgs) ->
     Supervisor = task3_sup:start_link(),
 
-    ServerPid = whereis(task3_server),
-
     Dispatch = cowboy_router:compile([
         {'_', [
-            {"/", task3_http_handler, [{server_pid, ServerPid}]}
+            {"/", task3_http_handler, []}
         ]}
     ]),
     Port = 8008,
